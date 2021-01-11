@@ -66,3 +66,16 @@ class GridView: NSObject {
     }
 }
 
+
+class GofLSwift {
+
+  let consoleIO = ConsoleIO()
+
+  func staticMode() {
+    consoleIO.printUsage()
+  }
+}
+
+let gofl = GofLSwift()
+gofl.staticMode()
+
