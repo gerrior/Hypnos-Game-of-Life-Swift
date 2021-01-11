@@ -27,7 +27,7 @@
 
 /* Begin PBXFileReference section */
 		9213180225ACF61300F1F374 /* ConsoleIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleIO.swift; sourceTree = "<group>"; };
-		929D796525ACD90500A68F6E /* Hypnos Game of Life Swift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Hypnos Game of Life Swift"; sourceTree = BUILT_PRODUCTS_DIR; };
+		929D796525ACD90500A68F6E /* golswift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = golswift; sourceTree = BUILT_PRODUCTS_DIR; };
 		929D796825ACD90500A68F6E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		929D797025ACDB1700A68F6E /* GameGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameGrid.swift; sourceTree = "<group>"; };
 		929D797325ACDB9300A68F6E /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		929D796625ACD90500A68F6E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				929D796525ACD90500A68F6E /* Hypnos Game of Life Swift */,
+				929D796525ACD90500A68F6E /* golswift */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,9 +74,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		929D796425ACD90500A68F6E /* Hypnos Game of Life Swift */ = {
+		929D796425ACD90500A68F6E /* golswift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 929D796C25ACD90500A68F6E /* Build configuration list for PBXNativeTarget "Hypnos Game of Life Swift" */;
+			buildConfigurationList = 929D796C25ACD90500A68F6E /* Build configuration list for PBXNativeTarget "golswift" */;
 			buildPhases = (
 				929D796125ACD90500A68F6E /* Sources */,
 				929D796225ACD90500A68F6E /* Frameworks */,
@@ -86,9 +86,9 @@
 			);
 			dependencies = (
 			);
-			name = "Hypnos Game of Life Swift";
+			name = golswift;
 			productName = "Hypnos Game of Life Swift";
-			productReference = 929D796525ACD90500A68F6E /* Hypnos Game of Life Swift */;
+			productReference = 929D796525ACD90500A68F6E /* golswift */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -118,7 +118,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				929D796425ACD90500A68F6E /* Hypnos Game of Life Swift */,
+				929D796425ACD90500A68F6E /* golswift */,
 			);
 		};
 /* End PBXProject section */
@@ -287,7 +287,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		929D796C25ACD90500A68F6E /* Build configuration list for PBXNativeTarget "Hypnos Game of Life Swift" */ = {
+		929D796C25ACD90500A68F6E /* Build configuration list for PBXNativeTarget "golswift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				929D796D25ACD90500A68F6E /* Debug */,
