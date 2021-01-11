@@ -66,16 +66,46 @@ class GridView: NSObject {
     }
 }
 
+enum OptionType: String {
+    case generations = "g"
+    case help = "h"
+    case unknown
+    
+    init(value: String) {
+        switch value {
+        case "g": self = .generations
+        case "h": self = .help
+        default: self = .unknown
+        }
+    }
+}
 
 class GofLSwift {
 
-  let consoleIO = ConsoleIO()
-
-  func staticMode() {
-    consoleIO.printUsage()
-  }
+    func getOption(_ option: String) -> (option:OptionType, value: String) {
+        return (OptionType(value: option), option)
+    }
+    let consoleIO = ConsoleIO()
+    
+    func staticMode() {
+        // number of arguments passed to the program
+        let argCount = CommandLine.argc
+        
+        // take the first “real” argument (the option argument) from the arguments array
+        let argument = CommandLine.arguments[1]
+        
+        // skip the first character in the argument's string (the hyphen character)
+        let (option, value) = getOption(String(argument.suffix(1)))
+        
+        // log parsing results to Console
+        consoleIO.writeMessage("Argument count: \(argCount) Option: \(option) value: \(value)")
+    }
 }
 
 let gofl = GofLSwift()
-gofl.staticMode()
 
+if CommandLine.argc < 2 {
+    //TODO: Handle interactive mode
+} else {
+    gofl.staticMode()
+}
