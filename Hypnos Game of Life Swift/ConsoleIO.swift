@@ -29,12 +29,12 @@ class ConsoleIO {
         let executableName = (CommandLine.arguments[0] as NSString).lastPathComponent
         
         writeMessage("usage:")
-        writeMessage("\(executableName) -a string1 string2")
+        writeMessage("\(executableName) -g[enerations] int (default 10)")
         writeMessage("or")
-        writeMessage("\(executableName) -p string")
+        writeMessage("\(executableName) -f[ile] string")
         writeMessage("or")
         writeMessage("\(executableName) -h to show usage information")
-        writeMessage("Type \(executableName) without an option to enter interactive mode.")
+        //writeMessage("Type \(executableName) without an option to enter interactive mode.")
     }
     
 }
