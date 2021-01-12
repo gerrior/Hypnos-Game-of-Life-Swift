@@ -67,12 +67,14 @@ class GridView: NSObject {
 }
 
 enum OptionType: String {
+    case file = "f"
     case generations = "g"
     case help = "h"
     case unknown
     
     init(value: String) {
         switch value {
+        case "f": self = .file
         case "g": self = .generations
         case "h": self = .help
         default: self = .unknown
@@ -97,8 +99,17 @@ class GofLSwift {
         // skip the first character in the argument's string (the hyphen character)
         let (option, value) = getOption(String(argument.suffix(1)))
         
-        // log parsing results to Console
-        consoleIO.writeMessage("Argument count: \(argCount) Option: \(option) value: \(value)")
+        switch option {
+        case .file:
+            consoleIO.writeMessage("\(value) not implemented at this time")
+        case .generations:
+            consoleIO.writeMessage("\(value) not implemented at this time")
+        case .help:
+            consoleIO.printUsage()
+        case .unknown:
+            consoleIO.writeMessage("Unknown option \(value)", to: .error)
+            consoleIO.printUsage()
+        }
     }
 }
 

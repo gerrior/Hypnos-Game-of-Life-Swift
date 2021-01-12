@@ -16,9 +16,11 @@ class ConsoleIO {
     func writeMessage(_ message: String, to: OutputType = .standard) {
         switch to {
         case .standard:
-            print("\(message)")
+            // \u{001B}[;m = reset terminal's text color back to the default
+            print("\u{001B}[;m\(message)")
         case .error:
-            fputs("Error: \(message)\n", stderr)
+            // \u{001B}[0;31m = control characters that cause Terminal to change the color of the following text strings to red
+            fputs("\u{001B}[0;31m\(message)\n", stderr)
         }
     }
     
