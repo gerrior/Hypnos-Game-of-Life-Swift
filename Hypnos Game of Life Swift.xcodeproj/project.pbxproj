@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		9213180325ACF61300F1F374 /* ConsoleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9213180225ACF61300F1F374 /* ConsoleIO.swift */; };
 		929D796925ACD90500A68F6E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929D796825ACD90500A68F6E /* main.swift */; };
-		929D797125ACDB1700A68F6E /* GameGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929D797025ACDB1700A68F6E /* GameGrid.swift */; };
+		929D797125ACDB1700A68F6E /* GameOfLife.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929D797025ACDB1700A68F6E /* GameOfLife.swift */; };
 		929D797425ACDB9300A68F6E /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929D797325ACDB9300A68F6E /* Cell.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +30,7 @@
 		9213180625AE65E700F1F374 /* glider.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = glider.txt; sourceTree = "<group>"; };
 		929D796525ACD90500A68F6E /* golswift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = golswift; sourceTree = BUILT_PRODUCTS_DIR; };
 		929D796825ACD90500A68F6E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		929D797025ACDB1700A68F6E /* GameGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameGrid.swift; sourceTree = "<group>"; };
+		929D797025ACDB1700A68F6E /* GameOfLife.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOfLife.swift; sourceTree = "<group>"; };
 		929D797325ACDB9300A68F6E /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,7 +67,7 @@
 				9213180625AE65E700F1F374 /* glider.txt */,
 				929D797325ACDB9300A68F6E /* Cell.swift */,
 				9213180225ACF61300F1F374 /* ConsoleIO.swift */,
-				929D797025ACDB1700A68F6E /* GameGrid.swift */,
+				929D797025ACDB1700A68F6E /* GameOfLife.swift */,
 				929D796825ACD90500A68F6E /* main.swift */,
 			);
 			path = "Hypnos Game of Life Swift";
@@ -132,7 +132,7 @@
 			files = (
 				929D796925ACD90500A68F6E /* main.swift in Sources */,
 				9213180325ACF61300F1F374 /* ConsoleIO.swift in Sources */,
-				929D797125ACDB1700A68F6E /* GameGrid.swift in Sources */,
+				929D797125ACDB1700A68F6E /* GameOfLife.swift in Sources */,
 				929D797425ACDB9300A68F6E /* Cell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,7 +24,7 @@ public enum Patterns {
     case glider
 }
 
-class GameGrid: NSObject {
+class GameOfLife: NSObject {
     let size: Int
     var cells: [Cell] = []
 

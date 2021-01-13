@@ -10,7 +10,7 @@ import Foundation
 class GridView: NSObject {
 
     // MARK: - Properties
-    var gameGrid = GameGrid(gridSize: 25)
+    var gameGrid = GameOfLife(gridSize: 25)
     private var cellSize: Int = 15
 
     private var timer: Timer?
