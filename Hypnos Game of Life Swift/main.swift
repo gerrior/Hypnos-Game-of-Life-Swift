@@ -74,5 +74,6 @@ if path != "" {
     let file = gofl.openFile()
     print(file.count)
 } else {
-    
+    gofl.writeMessage("File not specifed", to: .error)
+    gofl.printUsage()
 }

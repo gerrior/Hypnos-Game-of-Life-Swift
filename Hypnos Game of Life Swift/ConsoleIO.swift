@@ -128,12 +128,9 @@ class ConsoleIO {
         let executableName = URL(string: CommandLine.arguments[0] as String)!.lastPathComponent
         
         writeMessage("usage:")
-        writeMessage("\(executableName) -g[enerations] int (default 10)")
-        writeMessage("or")
-        writeMessage("\(executableName) -f[ile] string")
-        writeMessage("or")
+        writeMessage("\(executableName) [-g[enerations] int] -f[ile] file (default 10)")
+        writeMessage("Default number of generations is 10")
         writeMessage("\(executableName) -h shows this information")
-        //writeMessage("Type \(executableName) without an option to enter interactive mode.")
     }
     
 }
