@@ -74,6 +74,18 @@ if path != "" {
     let file = consoleIO.openFile()
     print("Number of lines: \(file.count)")
     
+    var cells = [Cell]()
+    
+    for row in file {
+        if row.starts(with: "#") { continue }
+        
+        let line = row.trimmingCharacters(in: .whitespacesAndNewlines)
+        let coordinateArray = line.components(separatedBy: .whitespacesAndNewlines)
+        let coordinates = coordinateArray.map( { Int($0)! } )
+        
+        cells.append(Cell(x: coordinates[0], y: coordinates[1]))
+    }
+    print(cells)
 } else {
     consoleIO.writeMessage("File not specifed", to: .error)
     consoleIO.printUsage()
