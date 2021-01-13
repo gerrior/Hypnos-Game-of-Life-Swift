@@ -66,14 +66,15 @@ class GridView: NSObject {
     }
 }
 
-let gofl = ConsoleIO()
+let consoleIO = ConsoleIO()
 
-gofl.ingestCommandLine()
+consoleIO.ingestCommandLine()
 
 if path != "" {
-    let file = gofl.openFile()
-    print(file.count)
+    let file = consoleIO.openFile()
+    print("Number of lines: \(file.count)")
+    
 } else {
-    gofl.writeMessage("File not specifed", to: .error)
-    gofl.printUsage()
+    consoleIO.writeMessage("File not specifed", to: .error)
+    consoleIO.printUsage()
 }
