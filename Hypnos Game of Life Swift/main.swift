@@ -17,6 +17,9 @@ if path != "" {
     
     let game = GameOfLife(lifeFile: file)
     
+    while game.generation <= iterations {
+        game.performGameTurn()
+    }
     
 } else {
     consoleIO.writeMessage("File not specifed", to: .error)
