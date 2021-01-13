@@ -89,18 +89,23 @@ class ConsoleIO {
 
     func openFile() -> [String] {
 
-        // Includes trailing slash.
+        // Includes trailing slash
         let appDirectory = URL(string: CommandLine.arguments[0] as String)!.deletingLastPathComponent()
 
         // appendingPathComponent fails at 120+ characters.
         let filenameAndPath = appDirectory.absoluteString + path
         print(filenameAndPath)
 
+        // Make sure the file exists
+        guard FileManager.default.fileExists(atPath: filenameAndPath) else {
+            preconditionFailure("File Not Found: \(filenameAndPath)")
+        }
+        
         // Read from the file
         do {
             let data = try String(contentsOfFile: filenameAndPath, encoding: String.Encoding.utf8)
-            let myStrings = data.components(separatedBy: .newlines)
-            return myStrings
+            let fileAsArray = data.components(separatedBy: .newlines)
+            return fileAsArray
         } catch let error as NSError {
             print("Failed reading from URL: \(filenameAndPath), Error: " + error.localizedDescription)
         }
