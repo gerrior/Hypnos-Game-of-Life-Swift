@@ -27,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		9213180225ACF61300F1F374 /* ConsoleIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleIO.swift; sourceTree = "<group>"; };
+		9213180625AE65E700F1F374 /* glider.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = glider.txt; sourceTree = "<group>"; };
 		929D796525ACD90500A68F6E /* golswift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = golswift; sourceTree = BUILT_PRODUCTS_DIR; };
 		929D796825ACD90500A68F6E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		929D797025ACDB1700A68F6E /* GameGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameGrid.swift; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 		929D796725ACD90500A68F6E /* Hypnos Game of Life Swift */ = {
 			isa = PBXGroup;
 			children = (
+				9213180625AE65E700F1F374 /* glider.txt */,
 				929D797325ACDB9300A68F6E /* Cell.swift */,
 				9213180225ACF61300F1F374 /* ConsoleIO.swift */,
 				929D797025ACDB1700A68F6E /* GameGrid.swift */,

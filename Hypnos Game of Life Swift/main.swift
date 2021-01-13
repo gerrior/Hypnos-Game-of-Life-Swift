@@ -69,3 +69,10 @@ class GridView: NSObject {
 let gofl = ConsoleIO()
 
 gofl.ingestCommandLine()
+
+if path != "" {
+    let file = gofl.openFile()
+    print(file.count)
+} else {
+    
+}

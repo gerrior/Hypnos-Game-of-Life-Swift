@@ -29,6 +29,7 @@ enum OptionType: String {
 }
 
 var iterations = 10
+var path = ""
 
 class ConsoleIO {
 
@@ -54,7 +55,7 @@ class ConsoleIO {
                 currentArg = currentArg + 1
                 
                 if currentArg < argCount {
-                    let path = CommandLine.arguments[currentArg]
+                    path = CommandLine.arguments[currentArg]
                     writeMessage("Found path \(path)")
                 } else {
                     writeMessage("Missing path from option \(value)", to: .error)
@@ -86,6 +87,26 @@ class ConsoleIO {
         }
     }
 
+    func openFile() -> [String] {
+
+        // Includes trailing slash.
+        let appDirectory = URL(string: CommandLine.arguments[0] as String)!.deletingLastPathComponent()
+
+        // appendingPathComponent fails at 120+ characters.
+        let filenameAndPath = appDirectory.absoluteString + path
+        print(filenameAndPath)
+
+        // Read from the file
+        do {
+            let data = try String(contentsOfFile: filenameAndPath, encoding: String.Encoding.utf8)
+            let myStrings = data.components(separatedBy: .newlines)
+            return myStrings
+        } catch let error as NSError {
+            print("Failed reading from URL: \(filenameAndPath), Error: " + error.localizedDescription)
+        }
+        return []
+    }
+    
     func writeMessage(_ message: String, to: OutputType = .standard) {
         switch to {
         case .standard:
@@ -99,7 +120,7 @@ class ConsoleIO {
     
     func printUsage() {
         
-        let executableName = (CommandLine.arguments[0] as NSString).lastPathComponent
+        let executableName = URL(string: CommandLine.arguments[0] as String)!.lastPathComponent
         
         writeMessage("usage:")
         writeMessage("\(executableName) -g[enerations] int (default 10)")
