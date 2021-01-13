@@ -21,6 +21,9 @@ if path != "" {
         game.performGameTurn()
     }
     
+    let resultFile = game.file()
+    consoleIO.writeFile(outputToWrite: resultFile)
+    
 } else {
     consoleIO.writeMessage("File not specifed", to: .error)
     consoleIO.printUsage()

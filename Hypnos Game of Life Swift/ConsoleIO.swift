@@ -112,6 +112,25 @@ class ConsoleIO {
         return []
     }
     
+    func writeFile(outputToWrite: [String]) {
+        // Includes trailing slash
+        let appDirectory = URL(string: CommandLine.arguments[0] as String)!.deletingLastPathComponent()
+
+        // appendingPathComponent fails at 120+ characters.
+        let filenameAndPath = appDirectory.absoluteString + path + "result.txt"
+        print(filenameAndPath)
+        
+        let url = URL(string: filenameAndPath)!.path
+        let joinedStrings = outputToWrite.joined(separator: "\n")
+        
+        // Write the file
+        do {
+            try joinedStrings.write(toFile: url, atomically: true, encoding: String.Encoding.utf8)
+        } catch let error as NSError {
+            print("Failed writing to URL: \(filenameAndPath), Error: " + error.localizedDescription)
+        }
+    }
+    
     func writeMessage(_ message: String, to: OutputType = .standard) {
         switch to {
         case .standard:

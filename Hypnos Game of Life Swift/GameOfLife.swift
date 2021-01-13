@@ -53,6 +53,18 @@ class GameOfLife: NSObject {
         generation = 0
     }
 
+    func file() -> [String] {
+        var results = ["#Life 1.06"]
+        
+        let sortedDictionary = cells.sorted(by: { $0.0 < $1.0 } )
+        
+        for (key, _) in sortedDictionary {
+            results.append(key)
+        }
+        
+        return results
+    }
+    
     public func useExamplePattern(pattern: Patterns = .glider) {
         print(pattern)
 
