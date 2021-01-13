@@ -79,11 +79,7 @@ if path != "" {
     for row in file {
         if row.starts(with: "#") { continue }
         
-        let line = row.trimmingCharacters(in: .whitespacesAndNewlines)
-        let coordinateArray = line.components(separatedBy: .whitespacesAndNewlines)
-        let coordinates = coordinateArray.map( { Int($0)! } )
-        
-        cells.append(Cell(x: coordinates[0], y: coordinates[1]))
+        cells.append(Cell(coordinates: row))
     }
     print(cells)
 } else {

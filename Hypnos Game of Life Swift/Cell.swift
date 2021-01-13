@@ -17,9 +17,19 @@ public class Cell: NSObject {
     public let y: Int
     public var state: State
 
-    public init(x: Int, y: Int, state: State = .dead) {
+    public init(x: Int, y: Int, state: State = .alive) {
         self.x = x
         self.y = y
+        self.state = state
+    }
+
+    public init(coordinates: String, state: State = .alive) {
+        let line = coordinates.trimmingCharacters(in: .whitespacesAndNewlines)
+        let coordinateArray = line.components(separatedBy: .whitespacesAndNewlines)
+        let coordinates = coordinateArray.map( { Int($0)! } )
+        
+        self.x = coordinates[0]
+        self.y = coordinates[1]
         self.state = state
     }
 }
