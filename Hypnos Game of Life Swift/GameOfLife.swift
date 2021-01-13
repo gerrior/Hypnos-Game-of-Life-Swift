@@ -24,13 +24,14 @@ public enum Patterns {
 
 class GameOfLife: NSObject {
     var cells = [String:Cell]()
-    var cellsToBirth = [String:Cell]()
     var cellEggs = [String:Cell]()
+
+    var cellsToKill = [String]()
+    var cellsToBirth = [String]()
 
     var generation = 0
     var population: Int {
-        0
-//BUGBUG        cells.filter{ $0.state == .alive }.count
+        cells.filter{ $0.value.state == .alive }.count
     }
 
     public init(lifeFile: [String]) {
@@ -231,7 +232,7 @@ class GameOfLife: NSObject {
     }
 
     func performGameTurn() {
-        var cellsToKill: [String] = []
+        cellsToKill.removeAll()
         cellsToBirth.removeAll()
         cellEggs.removeAll()
 
@@ -311,21 +312,26 @@ class GameOfLife: NSObject {
                 }
             }
 
+            // One pass cellsToKill is called. The other pass, cellsToBirth
             if count < 2 || count > 3 {
                 cellsToKill.append(key)
+            } else {
+                if count == 3 {
+                    cellsToBirth.append(key)
+                }
             }
         }
 
+        // TODO look at all the cell Eggs to see if they need to be born?
+
+        // Remove dead cells
         for dead in cellsToKill {
             cells[dead] = nil
         }
 
-        // TODO look at all the cell Eggs to see if they need to be born?
-        
-        for (key, cell) in cellEggs {
-            if cell.state == .alive {
-                cells[key] = cell
-            }
+        // Add cells that were born this turn
+        for born in cellsToBirth {
+            cells[born] = cellEggs[born]
         }
 
         generation += 1
