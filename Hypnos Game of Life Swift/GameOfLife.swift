@@ -24,6 +24,8 @@ public enum Patterns {
 
 class GameOfLife: NSObject {
     var cells = [String:Cell]()
+    var cellsToBirth = [String:Cell]()
+    var cellEggs = [String:Cell]()
 
     var generation = 0
     var population: Int {
@@ -41,7 +43,7 @@ class GameOfLife: NSObject {
         }
         super.init()
 
-//        self.useExamplePattern(pattern: .random)
+//BUGBUG        self.useExamplePattern(pattern: .random)
     }
 
     func clearGrid() {
@@ -206,22 +208,32 @@ class GameOfLife: NSObject {
         generation = 0
     }
 
-    func cellAt(x: Int, y: Int) -> Cell? {
-        // Is it in the current list of live cells?
-//        let key = "\(x) \(y)"
-//        for (key, cell) in cells {
-//            if cell.x == x && cell.y == y {
-//                return cell
-//            }
-//        }
+    func cellAt(x: Int, y: Int, createIfNotPresent: Bool = true) -> Cell? {
+        let key = "\(x) \(y)"
 
+        // Is it in the current list of live cells?
+        if cells[key] != nil {
+            return cells[key]
+        }
+        
         // Is it in the current list of dead adjacent cells?
-        return nil
+        if cellEggs[key] != nil {
+            return cellEggs[key]
+        }
+
+        let newCell = Cell(x: x, y: y, state: .dead)
+        
+        if createIfNotPresent {
+            cellEggs[key] = newCell
+        } // else we'll just return an object to satisfy the caller logic
+        
+        return newCell
     }
 
     func performGameTurn() {
         var cellsToKill: [String] = []
-        var cellsToBirth = [String:Cell]()
+        cellsToBirth.removeAll()
+        cellEggs.removeAll()
 
         for (key, cell) in cells {
             var count = 0
@@ -299,14 +311,8 @@ class GameOfLife: NSObject {
                 }
             }
 
-            if cell.state == .alive {
-                if count < 2 || count > 3 {
-                    cellsToKill.append(key)
-                }
-            } else { // cell.state == .dead
-                if count == 3 {
-                    cellsToBirth[key] = cell
-                }
+            if count < 2 || count > 3 {
+                cellsToKill.append(key)
             }
         }
 
@@ -314,8 +320,12 @@ class GameOfLife: NSObject {
             cells[dead] = nil
         }
 
-        for (key, cell) in cellsToBirth {
-            cells[key] = cell
+        // TODO look at all the cell Eggs to see if they need to be born?
+        
+        for (key, cell) in cellEggs {
+            if cell.state == .alive {
+                cells[key] = cell
+            }
         }
 
         generation += 1
