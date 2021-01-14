@@ -89,7 +89,7 @@ class GameOfLife: NSObject {
             let coordinates = (x: cellToCheck.x, y: cellToCheck.y)
 
             // West
-            if coordinates.x != Int.min {
+            if coordinates.x != Int.min + 1 {
                 if let cell = cellAt(x: coordinates.x - 1, y: coordinates.y, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
@@ -98,7 +98,7 @@ class GameOfLife: NSObject {
             }
 
             // North West
-            if coordinates.x != Int.min && coordinates.y != Int.min {
+            if coordinates.x != Int.min + 1 && coordinates.y != Int.min + 1 {
                 if let cell = cellAt(x: coordinates.x - 1, y: coordinates.y + 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
@@ -107,7 +107,7 @@ class GameOfLife: NSObject {
             }
 
             // North
-            if coordinates.y != Int.min {
+            if coordinates.y != Int.min + 1 {
                 if let cell = cellAt(x: coordinates.x, y: coordinates.y + 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
@@ -116,7 +116,7 @@ class GameOfLife: NSObject {
             }
 
             // North East
-            if coordinates.x < Int.max && coordinates.y != Int.min {
+            if coordinates.x < Int.max - 1 && coordinates.y != Int.min + 1 {
                 if let cell = cellAt(x: coordinates.x + 1, y: coordinates.y + 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
@@ -125,7 +125,7 @@ class GameOfLife: NSObject {
             }
 
             // East
-            if coordinates.x < Int.max {
+            if coordinates.x < Int.max - 1 {
                 if let cell = cellAt(x: coordinates.x + 1, y: coordinates.y, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
@@ -134,7 +134,7 @@ class GameOfLife: NSObject {
             }
 
             // South East
-            if coordinates.x < Int.max && coordinates.y < Int.max {
+            if coordinates.x < Int.max - 1 && coordinates.y < Int.max - 1 {
                 if let cell = cellAt(x: coordinates.x + 1, y: coordinates.y - 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
@@ -143,7 +143,7 @@ class GameOfLife: NSObject {
             }
 
             // South
-            if coordinates.y < Int.max {
+            if coordinates.y < Int.max - 1 {
                 if let cell = cellAt(x: coordinates.x, y: coordinates.y - 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
@@ -152,7 +152,7 @@ class GameOfLife: NSObject {
             }
 
             // South West
-            if coordinates.x != Int.min && coordinates.y < Int.max {
+            if coordinates.x != Int.min + 1 && coordinates.y < Int.max - 1 {
                 if let cell = cellAt(x: coordinates.x - 1, y: coordinates.y - 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
