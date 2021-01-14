@@ -21,7 +21,7 @@ class GameOfLife: NSObject {
 
     public init(lifeFile: [String]) {
 
-        // Create grid
+        // Create sparse grid
         for row in lifeFile {
             if row.starts(with: "#") { continue }
             
@@ -55,21 +55,24 @@ class GameOfLife: NSObject {
     func cellAt(x: Int, y: Int, createIfNotPresent: Bool = true) -> Cell? {
         let key = "\(x) \(y)"
 
-        // Is it in the current list of live cells?
+        // Is key in the current list of live cells?
         if cells[key] != nil {
             return cells[key]
         }
         
-        // Is it in the current list of dead adjacent cells?
+        // Is key in the current list of potential cells?
         if potentialCells[key] != nil {
             return potentialCells[key]
         }
 
+        // Not found it. Create a cell so caller logic can process it
         let newCell = Cell(x: x, y: y, state: .dead)
         
         if createIfNotPresent {
+            // This is a cell adjacent to a live cell. It could spring to life so we need to check it later
             potentialCells[key] = newCell
-        } // else we'll just return an object to satisfy the caller logic
+        } // else we're checking a dead adjacent cell; we don't want to check further; so don't add to potentialCells
+        // we'll just return an object to satisfy the caller logic
         
         return newCell
     }
@@ -157,7 +160,7 @@ class GameOfLife: NSObject {
                 }
             }
 
-            // One pass cellsToKill is called. The other pass, cellsToBirth
+            // One pass looks at cells (alive). The other pass looks as potentialCells (dead)
             if (count < 2 || count > 3) && cellToCheck.state == .alive {
                 cellsToKill.append(key)
             } else {
@@ -169,24 +172,30 @@ class GameOfLife: NSObject {
     }
     
     func performGameTurn() {
-        cellsToKill.removeAll()
-        cellsToBirth.removeAll()
-        potentialCells.removeAll()
+        cellsToKill.removeAll() // Array of keys
+        cellsToBirth.removeAll() // Array of keys
+        potentialCells.removeAll() // Dictionary of key, cell
 
+        // Look at all live cells, record if they need to die
         lookAround(aliveCells: true)
+        // The pior call will add cells to potentialCells
+        // These are the adjacent cells to live cells
+        // We now need to check if any of these cells will spring to life
         lookAround(aliveCells: false)
         
-        // TODO look at all the cell Eggs to see if they need to be born?
-
         // Remove dead cells
         for dead in cellsToKill {
+            // Use the dead key to set the dictionary value to nil
             cells[dead] = nil
         }
 
         // Add cells that were born this turn
         for born in cellsToBirth {
+            // Use the born key to access the cell in the dictionary
             let cell = potentialCells[born]!
+            // Set its new state to alive
             cell.state = .alive
+            // Add the new cell to the list of alive cells
             cells[born] = cell
         }
 
