@@ -23,12 +23,16 @@ public class Cell: NSObject {
         self.state = state
     }
 
-    public init(coordinates: String, state: State = .alive) {
-        let coordinateArray = coordinates.components(separatedBy: .whitespacesAndNewlines)
-        let coordinates = coordinateArray.map( { Int($0)! } )
+    public init(coordinates coordinatesString: String, state: State = .alive) {
+        let coordinateArray = coordinatesString.components(separatedBy: .whitespacesAndNewlines)
+        let coordinates = coordinateArray.map( { Int($0) } )
         
-        self.x = coordinates[0]
-        self.y = coordinates[1]
+        if coordinates[0] == nil || coordinates[1] == nil {
+            fatalError("The coordinates '\(coordinatesString)' could not be converted to integers.")
+        }
+        
+        self.x = coordinates[0]!
+        self.y = coordinates[1]!
         self.state = state
     }
 }
