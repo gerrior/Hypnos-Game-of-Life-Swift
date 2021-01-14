@@ -40,7 +40,11 @@ class GameOfLife: NSObject {
         for row in lifeFile {
             if row.starts(with: "#") { continue }
             
-            cells[row] = Cell(coordinates: row)
+            let trimmedRow = row.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            if trimmedRow.count < 3 { continue }
+            
+            cells[trimmedRow] = Cell(coordinates: trimmedRow)
         }
         super.init()
 
@@ -243,18 +247,20 @@ class GameOfLife: NSObject {
         return newCell
     }
 
-    func performGameTurn() {
-        cellsToKill.removeAll()
-        cellsToBirth.removeAll()
-        cellEggs.removeAll()
-
-        for (key, cell) in cells {
+    func lookAround(aliveCells: Bool = true) {
+        var cellsToSearch = cellEggs
+        
+        if aliveCells {
+            cellsToSearch = cells
+        }
+        
+        for (key, cellToCheck) in cellsToSearch {
             var count = 0
-            let coordinates = (x: cell.x, y: cell.y)
+            let coordinates = (x: cellToCheck.x, y: cellToCheck.y)
 
             // West
-            if coordinates.x != 0 {
-                if let cell = cellAt(x: coordinates.x - 1, y: coordinates.y) {
+            if coordinates.x != Int.min {
+                if let cell = cellAt(x: coordinates.x - 1, y: coordinates.y, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
                     }
@@ -262,8 +268,8 @@ class GameOfLife: NSObject {
             }
 
             // North West
-            if coordinates.x != 0 && coordinates.y != 0 {
-                if let cell = cellAt(x: coordinates.x - 1, y: coordinates.y - 1) {
+            if coordinates.x != Int.min && coordinates.y != Int.min {
+                if let cell = cellAt(x: coordinates.x - 1, y: coordinates.y + 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
                     }
@@ -271,8 +277,8 @@ class GameOfLife: NSObject {
             }
 
             // North
-            if coordinates.y != 0 {
-                if let cell = cellAt(x: coordinates.x, y: coordinates.y - 1) {
+            if coordinates.y != Int.min {
+                if let cell = cellAt(x: coordinates.x, y: coordinates.y + 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
                     }
@@ -280,8 +286,8 @@ class GameOfLife: NSObject {
             }
 
             // North East
-            if coordinates.x < Int.max - 1 && coordinates.y != 0 {
-                if let cell = cellAt(x: coordinates.x + 1, y: coordinates.y - 1) {
+            if coordinates.x < Int.max && coordinates.y != Int.min {
+                if let cell = cellAt(x: coordinates.x + 1, y: coordinates.y + 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
                     }
@@ -290,7 +296,7 @@ class GameOfLife: NSObject {
 
             // East
             if coordinates.x < Int.max {
-                if let cell = cellAt(x: coordinates.x + 1, y: coordinates.y) {
+                if let cell = cellAt(x: coordinates.x + 1, y: coordinates.y, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
                     }
@@ -299,7 +305,7 @@ class GameOfLife: NSObject {
 
             // South East
             if coordinates.x < Int.max && coordinates.y < Int.max {
-                if let cell = cellAt(x: coordinates.x + 1, y: coordinates.y + 1) {
+                if let cell = cellAt(x: coordinates.x + 1, y: coordinates.y - 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
                     }
@@ -308,7 +314,7 @@ class GameOfLife: NSObject {
 
             // South
             if coordinates.y < Int.max {
-                if let cell = cellAt(x: coordinates.x, y: coordinates.y + 1) {
+                if let cell = cellAt(x: coordinates.x, y: coordinates.y - 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
                     }
@@ -316,8 +322,8 @@ class GameOfLife: NSObject {
             }
 
             // South West
-            if coordinates.x != 0 && coordinates.y < Int.max {
-                if let cell = cellAt(x: coordinates.x - 1, y: coordinates.y + 1) {
+            if coordinates.x != Int.min && coordinates.y < Int.max {
+                if let cell = cellAt(x: coordinates.x - 1, y: coordinates.y - 1, createIfNotPresent: aliveCells) {
                     if cell.state == .alive {
                         count = count + 1
                     }
@@ -325,15 +331,24 @@ class GameOfLife: NSObject {
             }
 
             // One pass cellsToKill is called. The other pass, cellsToBirth
-            if count < 2 || count > 3 {
+            if (count < 2 || count > 3) && cellToCheck.state == .alive {
                 cellsToKill.append(key)
             } else {
-                if count == 3 {
+                if count == 3 && cellToCheck.state == .dead {
                     cellsToBirth.append(key)
                 }
             }
         }
+    }
+    
+    func performGameTurn() {
+        cellsToKill.removeAll()
+        cellsToBirth.removeAll()
+        cellEggs.removeAll()
 
+        lookAround(aliveCells: true)
+        lookAround(aliveCells: false)
+        
         // TODO look at all the cell Eggs to see if they need to be born?
 
         // Remove dead cells
@@ -343,7 +358,9 @@ class GameOfLife: NSObject {
 
         // Add cells that were born this turn
         for born in cellsToBirth {
-            cells[born] = cellEggs[born]
+            let cell = cellEggs[born]!
+            cell.state = .alive
+            cells[born] = cell
         }
 
         generation += 1

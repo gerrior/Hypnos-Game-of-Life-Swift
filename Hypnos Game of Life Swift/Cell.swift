@@ -26,8 +26,7 @@ public class Cell: NSObject {
     }
 
     public init(coordinates: String, state: State = .alive) {
-        let line = coordinates.trimmingCharacters(in: .whitespacesAndNewlines)
-        let coordinateArray = line.components(separatedBy: .whitespacesAndNewlines)
+        let coordinateArray = coordinates.components(separatedBy: .whitespacesAndNewlines)
         let coordinates = coordinateArray.map( { Int($0)! } )
         
         self.x = coordinates[0]

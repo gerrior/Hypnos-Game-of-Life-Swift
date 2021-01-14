@@ -17,7 +17,7 @@ if path != "" {
     
     let game = GameOfLife(lifeFile: file)
     
-    while game.generation <= iterations {
+    while game.generation < iterations {
         game.performGameTurn()
     }
     

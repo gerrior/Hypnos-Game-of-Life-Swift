@@ -117,7 +117,7 @@ class ConsoleIO {
         let appDirectory = URL(string: CommandLine.arguments[0] as String)!.deletingLastPathComponent()
 
         // appendingPathComponent fails at 120+ characters.
-        let filenameAndPath = appDirectory.absoluteString + path + "result.txt"
+        let filenameAndPath = appDirectory.absoluteString + path + "result.txt" // BUGBUG: This can be more elegant
         print(filenameAndPath)
         
         let url = URL(string: filenameAndPath)!.path
