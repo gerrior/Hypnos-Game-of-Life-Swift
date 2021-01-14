@@ -7,21 +7,6 @@
 
 import Foundation
 
-public enum Patterns {
-    // Still Lifes
-    case behive
-
-    // Oscillators
-    case blinker
-    case toad
-    case beacon
-    case pulsar
-    case pentadecathlon
-
-    // Spaceships
-    case glider
-}
-
 class GameOfLife: NSObject {
     var cells = [String:Cell]()
     var cellEggs = [String:Cell]()
