@@ -57,7 +57,7 @@ class GameOfLife: NSObject {
         generation = 0
     }
 
-    func file() -> [String] {
+    func exportGrid() -> [String] {
         var results = ["#Life 1.06"]
         
         let sortedDictionary = cells.sorted(by: { $0.0 < $1.0 } )

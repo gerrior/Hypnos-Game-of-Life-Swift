@@ -11,9 +11,12 @@ let consoleIO = ConsoleIO()
 
 consoleIO.ingestCommandLine()
 
-if consoleIO.path != "" {
+if consoleIO.path == "" {
+    consoleIO.writeMessage("File not specifed", to: .error)
+    consoleIO.printUsage()
+} else {
     let file = consoleIO.openFile()
-    print("Number of lines: \(file.count)")
+    //print("Number of lines: \(file.count)")
     
     let game = GameOfLife(lifeFile: file)
     
@@ -21,10 +24,6 @@ if consoleIO.path != "" {
         game.performGameTurn()
     }
     
-    let resultFile = game.file()
-    consoleIO.writeFile(outputToWrite: resultFile)
-    
-} else {
-    consoleIO.writeMessage("File not specifed", to: .error)
-    consoleIO.printUsage()
+    let result = game.exportGrid()
+    consoleIO.writeFile(outputToWrite: result)
 }
