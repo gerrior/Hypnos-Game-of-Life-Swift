@@ -93,7 +93,7 @@ class ConsoleIO {
 
         // appendingPathComponent fails at 120+ characters.
         let filenameAndPath = appDirectory.absoluteString + path
-        print(filenameAndPath)
+        //print(filenameAndPath)
 
         // Make sure the file exists
         guard FileManager.default.fileExists(atPath: filenameAndPath) else {
@@ -116,8 +116,9 @@ class ConsoleIO {
         let appDirectory = URL(string: CommandLine.arguments[0] as String)!.deletingLastPathComponent()
 
         // appendingPathComponent fails at 120+ characters.
-        let filenameAndPath = appDirectory.absoluteString + path + "result.txt" // BUGBUG: This can be more elegant
-        print(filenameAndPath)
+        let filenameWithoutExtension = URL(fileURLWithPath: path).deletingPathExtension().lastPathComponent
+        let filenameAndPath = appDirectory.absoluteString + filenameWithoutExtension + "-result.txt"
+        //print(filenameAndPath)
         
         let url = URL(string: filenameAndPath)!.path
         let joinedStrings = outputToWrite.joined(separator: "\n")
@@ -146,8 +147,9 @@ class ConsoleIO {
         let executableName = URL(string: CommandLine.arguments[0] as String)!.lastPathComponent
         
         writeMessage("usage:")
-        writeMessage("\(executableName) [-g[enerations] int] -f[ile] file (default 10)")
-        writeMessage("Default number of generations is 10")
+        writeMessage("\(executableName) [-g int] -f file")
+        writeMessage("-g = Generations - Default number of generations is 10")
+        writeMessage("-f = File")
         writeMessage("\(executableName) -h shows this information")
     }
     
