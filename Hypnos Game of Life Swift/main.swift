@@ -11,13 +11,13 @@ let consoleIO = ConsoleIO()
 
 consoleIO.ingestCommandLine()
 
-if path != "" {
+if consoleIO.path != "" {
     let file = consoleIO.openFile()
     print("Number of lines: \(file.count)")
     
     let game = GameOfLife(lifeFile: file)
     
-    while game.generation < iterations {
+    while game.generation < consoleIO.iterations {
         game.performGameTurn()
     }
     

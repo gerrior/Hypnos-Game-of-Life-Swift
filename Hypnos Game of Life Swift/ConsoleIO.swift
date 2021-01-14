@@ -28,10 +28,9 @@ enum OptionType: String {
     }
 }
 
-var iterations = 10
-var path = ""
-
 class ConsoleIO {
+    var path = ""
+    var iterations = 10
 
     private func getOption(_ option: String) -> (option:OptionType, value: String) {
         return (OptionType(value: option), option)
