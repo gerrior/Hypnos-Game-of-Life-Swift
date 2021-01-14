@@ -9,7 +9,7 @@ import Foundation
 
 class GameOfLife: NSObject {
     var cells = [String:Cell]()
-    var cellEggs = [String:Cell]()
+    var potentialCells = [String:Cell]()
 
     var cellsToKill = [String]()
     var cellsToBirth = [String]()
@@ -61,21 +61,21 @@ class GameOfLife: NSObject {
         }
         
         // Is it in the current list of dead adjacent cells?
-        if cellEggs[key] != nil {
-            return cellEggs[key]
+        if potentialCells[key] != nil {
+            return potentialCells[key]
         }
 
         let newCell = Cell(x: x, y: y, state: .dead)
         
         if createIfNotPresent {
-            cellEggs[key] = newCell
+            potentialCells[key] = newCell
         } // else we'll just return an object to satisfy the caller logic
         
         return newCell
     }
 
     func lookAround(aliveCells: Bool = true) {
-        var cellsToSearch = cellEggs
+        var cellsToSearch = potentialCells
         
         if aliveCells {
             cellsToSearch = cells
@@ -171,7 +171,7 @@ class GameOfLife: NSObject {
     func performGameTurn() {
         cellsToKill.removeAll()
         cellsToBirth.removeAll()
-        cellEggs.removeAll()
+        potentialCells.removeAll()
 
         lookAround(aliveCells: true)
         lookAround(aliveCells: false)
@@ -185,7 +185,7 @@ class GameOfLife: NSObject {
 
         // Add cells that were born this turn
         for born in cellsToBirth {
-            let cell = cellEggs[born]!
+            let cell = potentialCells[born]!
             cell.state = .alive
             cells[born] = cell
         }
