@@ -22,6 +22,11 @@ if consoleIO.path == "" {
     
     while game.generation < consoleIO.iterations {
         game.performGameTurn()
+
+        if consoleIO.saveAfterEveryIteration {
+            let checkpoint = game.exportGrid()
+            consoleIO.writeFile(outputToWrite: checkpoint, generations: game.generation)
+        }
     }
     
     let result = game.exportGrid()

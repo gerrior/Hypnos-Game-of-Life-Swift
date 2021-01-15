@@ -16,6 +16,7 @@ enum OptionType: String {
     case file = "f"
     case generations = "g"
     case help = "h"
+    case save = "s"
     case unknown
     
     init(value: String) {
@@ -23,6 +24,7 @@ enum OptionType: String {
         case "f": self = .file
         case "g": self = .generations
         case "h": self = .help
+        case "s": self = .save
         default: self = .unknown
         }
     }
@@ -31,6 +33,7 @@ enum OptionType: String {
 class ConsoleIO {
     var path = ""
     var iterations = 10
+    var saveAfterEveryIteration = false
 
     private func getOption(_ option: String) -> (option:OptionType, value: String) {
         return (OptionType(value: option), option)
@@ -77,6 +80,8 @@ class ConsoleIO {
                 }
             case .help:
                 printUsage()
+            case .save:
+                saveAfterEveryIteration = true
             case .unknown:
                 writeMessage("Unknown option \(value)", to: .error)
                 printUsage()
@@ -111,13 +116,20 @@ class ConsoleIO {
         return []
     }
     
-    func writeFile(outputToWrite: [String]) {
+    func writeFile(outputToWrite: [String], generations: Int = 0) {
         // Includes trailing slash
         let appDirectory = URL(string: CommandLine.arguments[0] as String)!.deletingLastPathComponent()
 
+        var appendToFilename = "-result.txt";
+
+        if (generations > 0)
+        {
+            appendToFilename = "-result-g\(generations).txt";
+        }
+
         // appendingPathComponent fails at 120+ characters.
         let filenameWithoutExtension = URL(fileURLWithPath: path).deletingPathExtension().lastPathComponent
-        let filenameAndPath = appDirectory.absoluteString + filenameWithoutExtension + "-result.txt"
+        let filenameAndPath = appDirectory.absoluteString + filenameWithoutExtension + appendToFilename
         //print(filenameAndPath)
         
         let url = URL(string: filenameAndPath)!.path
